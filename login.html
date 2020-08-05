@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
 <html lang="en">
 
 <head>
@@ -13,7 +12,8 @@
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-  <style>
+ 
+    <style>
     html, body{
       height: 100%;
     }
@@ -34,21 +34,38 @@
       padding: 15px;
       margin: auto;
     }
+    
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 25%;
+  min-width: 300px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
   </style>
 </head>
 
 <body class="text-center">
-  <div class="container p-5">
-   <!--
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 16/08/2020) -> Punto 3 y 4.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="container p-5" id="formContent">
+    <img src="img/login.png" width="200px" >
+    <h2>Iniciar sesión</h2>
+    <div class="wrapper fadeInDown">
+      <form >
+        <input  type="user" name="usr" id="usr" placeholder="Usuario">
+        <input  type="password" name="psw" id="psw" placeholder="Contraseña">
+        <p><input type="checkbox" name="rembember" id="rembember"> ¿Recordar cuenta?</p>
+        <input type="submit" name="submit" id="submit" value="Ingresar">
+      </form>
     </div>
-    -->
   </div>
 
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
 </body>

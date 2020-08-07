@@ -5,7 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
+     <!--Google sign in-->
+  <meta name="google-signin-client_id" content="599311944612-r3kk82eub2s4thfo2hj72l4ld0t75ene.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
   <title>eMercado - Todo lo que busques está aquí</title>
+  
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -60,12 +65,12 @@
         <p><input type="checkbox" name="rembember" id="rembember"> ¿Recordar cuenta?</p>
         <input type="submit" name="submit" id="submit" value="Ingresar">
       </form>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
   </div>
 
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
 </body>

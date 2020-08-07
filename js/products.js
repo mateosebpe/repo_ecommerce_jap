@@ -15,8 +15,8 @@ function showProductsList (){
 
           <div class="col">
             <div class="d-flex w-100 justify-content-between">
-              <h2 class="mb-1">`+product.name+`</h2>
-              <p class="text-muted">`+product.cost+" "+product.currency+`</p>
+              <h2 class="mb-1">`+product.name+" - " +product.cost+" "+product.currency+`</h2>
+              <p class="text-muted">Vendidos: `+product.soldCount+`</p>
             </div>
             <div>
               <p class="mb-1 text-muted">` +product.description+ `</p>

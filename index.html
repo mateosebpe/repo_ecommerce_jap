@@ -52,6 +52,7 @@
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
 }
+
   </style>
 </head>
 
@@ -59,7 +60,7 @@
   <div class="container p-5" id="formContent">
     <img src="img/login.png" width="200px" >
     <h2>Iniciar sesión</h2>
-    <div class="wrapper fadeInDown">
+    <div class="wrapper fadeInDown text-center">
       <form action="cover.html">
         <input  type="user" name="usr" id="usr" placeholder="Usuario" required>
         <input  type="password" name="psw" id="psw" placeholder="Contraseña" required>
@@ -67,7 +68,7 @@
         <input type="submit" name="submit" id="submit" value="Ingresar">
         <hr>
         <p>O ingresa con Google</p>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="g-signin2 loginbtt" data-onsuccess="onSignIn"></div>
       </form>
 
     </div>

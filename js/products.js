@@ -1,13 +1,82 @@
+const ORDER_ASC_BY_NAME = "AZ";
+const ORDER_DESC_BY_NAME = "ZA";
+const ORDER_BY_COST = "Cost.";
+
+var currentSortProductsCriteria = undefined;
 var currentProductsArray = [];
+
 let maxCost = undefined;
 let minCost = undefined;
 
-document.addEventListener("DOMContentLoaded", function (e) {
-  getJSONData(PRODUCTS_URL).then(function (resultObj) {
-    if (resultObj.status = "ok") {
-      sortAndShowProducts(resultObj.data);
-    }
-  })
+//=====================================================================================
+/*Filter by order*/
+function sortProducts(criteria, array) {
+  let result = [];
+  if (criteria === ORDER_ASC_BY_NAME) {
+    result = array.sort(function (a, b) {
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
+      return 0;
+    });
+  } else if (criteria === ORDER_DESC_BY_NAME) {
+    result = array.sort(function (a, b) {
+      if (a.name > b.name) { return -1; }
+      if (a.name < b.name) { return 1; }
+      return 0;
+    });
+  } else if (criteria === ORDER_BY_COST) {
+    result = array.sort(function (a, b) {
+      let aCost = parseInt(a.cost);
+      let bCost = parseInt(b.cost);
+
+      if (aCost > bCost) { return -1; }
+      if (aCost < bCost) { return 1; }
+      return 0;
+    });
+  }
+  return result;
+}
+
+document.getElementById("sortAsc").addEventListener("click", function () {
+  sortAndShowProducts(ORDER_ASC_BY_NAME);
+});
+
+document.getElementById("sortDesc").addEventListener("click", function () {
+  sortAndShowProducts(ORDER_DESC_BY_NAME);
+});
+
+document.getElementById("sortByCost").addEventListener("click", function () {
+  sortAndShowProducts(ORDER_BY_COST);
+});
+
+//=====================================================================================
+/*Filter by cost*/
+
+//Filter
+document.getElementById("rangeFilterCount").addEventListener("click", function () {
+  let min = document.getElementById("rangeFilterCountMin").value;
+  let max = document.getElementById("rangeFilterCountMax").value;
+  if (min != undefined && parseInt(min) >= 0) {
+    minCost = parseInt(min);
+  } else {
+    minCost = undefined;
+  }
+  if (max != undefined && parseInt(max) >= 0) {
+    maxCost = parseInt(max);
+  } else {
+    maxCost = undefined;
+  }
+
+  showProductsList();
+});
+
+//Clear
+document.getElementById("clearRangeFilter").addEventListener("click", function () {
+  document.getElementById("rangeFilterCountMin").value = "";
+  document.getElementById("rangeFilterCountMax").value = "";
+  maxCost = undefined;
+  minCost = undefined;
+  showProductsList();
 });
 
 
@@ -45,36 +114,23 @@ function showProductsList() {
   document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 }
 
-function sortAndShowProducts(productsArray) {
-  currentProductsArray = productsArray;
+//=====================================================================================
+document.addEventListener("DOMContentLoaded", function (e) {
+  getJSONData(PRODUCTS_URL).then(function (resultObj) {
+    if (resultObj.status = "ok") {
+      sortAndShowProducts(ORDER_ASC_BY_NAME, resultObj.data);
+    }
+  })
+});
+
+function sortAndShowProducts(sortCriteria, productsArray) {
+  currentSortProductsCriteria = sortCriteria;
+  if (productsArray != undefined) {
+    currentProductsArray = productsArray;
+  }
+  currentProductsArray = sortProducts(currentSortProductsCriteria, currentProductsArray);
   showProductsList();
 }
+
 //=====================================================================================
-/*Filter by cost*/
 
-//Filter
-document.getElementById("rangeFilterCount").addEventListener("click", function () {
-  let min = document.getElementById("rangeFilterCountMin").value;
-  let max = document.getElementById("rangeFilterCountMax").value;
-  if (min != undefined && parseInt(min) >= 0) {
-    minCost = parseInt(min);
-  } else {
-    minCost = undefined;
-  }
-  if (max != undefined && parseInt(max) >= 0) {
-    maxCost = parseInt(max);
-  } else {
-    maxCost = undefined;
-  }
-
-  showProductsList();
-});
-
-//Clear
-document.getElementById("clearRangeFilter").addEventListener("click", function () {
-  document.getElementById("rangeFilterCountMin").value = "";
-  document.getElementById("rangeFilterCountMax").value = "";
-  maxCost = undefined;
-  minCost = undefined;
-  showProductsList();
-});

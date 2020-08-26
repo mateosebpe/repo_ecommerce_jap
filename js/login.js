@@ -3,6 +3,10 @@
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
 });
+
+
+
+
 //Google SignIn
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
@@ -10,9 +14,8 @@ function onSignIn(googleUser) {
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    window.location.href = "cover.html"
+    logged(profile.getName);
   }
-
   function renderButton() {
     gapi.signin2.render('my-signin2', {
       'scope': 'profile email',
@@ -23,4 +26,24 @@ function onSignIn(googleUser) {
       'onsuccess': onSuccess,
       'onfailure': onFailure
     });
+  }
+
+  //Manual SignIn
+  document.getElementById("submit").addEventListener("click", function(e){
+    let user = document.getElementById("usr").value;
+    let password = document.getElementById("psw").value;
+    
+    if(user != undefined && password != undefined){
+      logged(user);
+    }
+  });
+
+
+  function logged (name){
+    if(name != undefined){
+      let setlocalStorage = window.localStorage;
+      setlocalStorage.setItem("name", name);
+      window.location.href = "cover.html"
+    }
+    
   }

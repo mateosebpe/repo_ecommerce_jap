@@ -8,6 +8,8 @@ var currentProductsArray = [];
 let maxCost = undefined;
 let minCost = undefined;
 
+let textFilter = undefined;
+
 //=====================================================================================
 /*Filter by order*/
 function sortProducts(criteria, array) {
@@ -81,7 +83,13 @@ document.getElementById("clearRangeFilter").addEventListener("click", function (
   minCost = undefined;
   showProductsList();
 });
+//=====================================================================================
+/*Filter by text*/
 
+document.getElementById("search").addEventListener("input", function(){
+  textFilter = document.getElementById("search").value.toLowerCase();;
+  showProductsList();
+ });
 
 //=====================================================================================
 /*Element maker*/
@@ -92,6 +100,8 @@ function showProductsList() {
   for (i = 0; i < currentProductsArray.length; i++) {
     let product = currentProductsArray[i];
     if (((minCost === undefined) || (minCost != undefined && product.cost >= parseInt(minCost))) && ((maxCost === undefined) || (maxCost != undefined && product.cost <= parseInt(maxCost)))) {
+      
+      if(textFilter == undefined || product.name.toLowerCase().indexOf(textFilter) != -1){
       htmlContentToAppend += `
         <a href="product-info.html" class="list-group-item list-group-item-action">
         <div class="row">
@@ -113,9 +123,12 @@ function showProductsList() {
       </a>
       `
     }
+    
+  }
   }
   document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 }
+
 
 //=====================================================================================
 document.addEventListener("DOMContentLoaded", function (e) {

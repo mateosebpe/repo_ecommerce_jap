@@ -43,7 +43,7 @@ function onSignIn(googleUser) {
   function logged (name){
     if(name != undefined){
       let setlocalStorage = window.localStorage;
-      setlocalStorage.setItem("name", name);
+      setlocalStorage.setItem("user-logged", JSON.stringify({username:name}));
       window.location.href = "cover.html"
     }
     

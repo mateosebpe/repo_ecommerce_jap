@@ -38,15 +38,23 @@
 
 
     <div class="container">
+      <!--Búsqueda especifica-->
+
+      
+
+
+
       <!--Filtro de orden-->
       <div class="row">
         <div class="col text-right">
           <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
             <label class="btn btn-light active" id="sortAsc">
-              <input type="radio" name="options" autocomplete="off" checked><i class="fas fa-sort-amount-up mr-1"></i>Precio (Asc.)
+              <input type="radio" name="options" autocomplete="off" checked><i
+                class="fas fa-sort-amount-up mr-1"></i>Precio (Asc.)
             </label>
             <label class="btn btn-light" id="sortDesc">
-              <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Precio (Desc.)
+              <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Precio
+              (Desc.)
             </label>
             <label class="btn btn-light" id="sortByCost">
               <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-alpha-down mr-1"></i>Nombre
@@ -76,6 +84,11 @@
             </div>
           </div>
         </div>
+        <!--Búsqueda específica-->
+        <div class="col text-right" style="margin: 5px;">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search" placeholder="Búsqueda especifica.">
+        </div>
 
         <!--Lista de productos-->
         <div class="row">
@@ -86,6 +99,8 @@
 
         </div>
       </div>
+
+
     </div>
   </main>
 

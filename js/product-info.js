@@ -1,19 +1,35 @@
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
+let imgPag = 0;
+let result;
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
         if (resultObj.status == "ok") {
-            showInfo(resultObj.data);
-
+            result = resultObj.data;
+            showInfo(result);
         }
     });
 });
+document.getElementById("").addEventListener("click", function(){
+  if(result.images.lenght - 1 < imgPag){
+imgPag++;
+} else{
+  imgPag = 0;
+}
+showInfo(result);
+});
+document.getElementById("").addEventListener("click", function(){
+  if(imgPag > 0){
+imgPag--;
+} else{
+  imgPag = result.images.lenght - 1;
+}
+showInfo(result);
+});
+
 
 function showInfo(jsondata){
 let htmlContentToAppend = `<div class="row"> 
 <div class="col-md-6">
-  <img src="`+jsondata.images[1]+`" alt="" class="col">
+  <img src="`+jsondata.images[imgPag]+`" alt="" class="col">
 </div>
 <div class="col-md-6" >
   <h2>`+jsondata.name+`</h2>

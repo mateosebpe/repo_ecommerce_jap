@@ -12,8 +12,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 function showInfo(jsondata){
 let htmlContentToAppend = `<div class="row"> 
-<div class="col-md-6">
+<div class="col-md-6 text-center">
   <img src="`+jsondata.images[1]+`" alt="" class="col">
+  <div>
+  <button>Anterior</button>
+  <button>Siguiente</button>
+  </div>
 </div>
 <div class="col-md-6" >
   <h2>`+jsondata.name+`</h2>

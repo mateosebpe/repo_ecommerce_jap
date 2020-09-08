@@ -1,4 +1,7 @@
 let imgPag = 0;
+let commentArray = [];
+//=====================================================================================
+
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
     if (resultObj.status == "ok") {
@@ -7,10 +10,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
   });
   getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
     if (resultObj.status == "ok") {
-      showComments(resultObj.data);
+      commentArray = resultObj.data;
+      showComments(commentArray);
     }
   });
+  commentAuth();
 });
+
+
+
+//=====================================================================================
 
 function showInfo(infoData) {
   let htmlContentToAppend = `<div class="row"> 
@@ -47,6 +56,8 @@ function showInfo(infoData) {
   });
 }
 
+//=====================================================================================
+
 function showComments(comments){
 let htmlContentToAppend = "";
 
@@ -68,3 +79,61 @@ for(let i = 0; i < comments.length; i++){
 }
 document.getElementById("comments-display").innerHTML = htmlContentToAppend;
 }
+
+//=====================================================================================
+
+
+function commentAuth ()
+{
+  //Checkeo autorización de sesión para comentar
+  let succefulLoggedUser = 
+  `<div>
+<textarea class="col-md-10" type="text" placeholder="Escribe aquí tu comentario..." id="text-comment"></textarea>
+<br>
+<i class="fas fa-star"></i>
+<select id="calification">
+  <optgroup label="Calificación">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option selected>5</option></optgroup>
+</select>
+<button id="publish-btn">Publicar</button>
+<br><br>
+
+</div>`;
+
+let warningLoggedOut = 
+`<div class="alert-danger" role="alert">
+<p>Debes <a href="index.html">Iniciar sesión</a> para escribir un comentario.</p>
+</div>`;
+
+  let writeComment = document.getElementById("write-comment");
+  if(isLogged())
+  {
+    writeComment.innerHTML = succefulLoggedUser;
+    //Enviar mensaje
+    document.getElementById("publish-btn").addEventListener("click", function(e)
+{
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTime = date+' '+time;
+  let newComment = {score: document.getElementById("calification").value, 
+                  description: document.getElementById("text-comment").value, 
+                  user: getName(),
+                  dateTime: dateTime};
+  commentArray.push(newComment);
+  showComments(commentArray);
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  commentAuth ();
+  
+});
+  }else{
+    writeComment.innerHTML = warningLoggedOut;
+  }
+}
+

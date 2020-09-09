@@ -88,7 +88,7 @@ function commentAuth ()
   //Checkeo autorización de sesión para comentar
   let succefulLoggedUser = 
   `<div>
-<textarea class="col-md-10" type="text" placeholder="Escribe aquí tu comentario..." id="text-comment"></textarea>
+<textarea class="col-md-12" type="text" placeholder="Escribe aquí tu comentario..." id="text-comment"></textarea>
 <br>
 <i class="fas fa-star"></i>
 <select id="calification">
@@ -99,7 +99,7 @@ function commentAuth ()
     <option>4</option>
     <option selected>5</option></optgroup>
 </select>
-<button id="publish-btn">Publicar</button>
+<button id="publish-btn" class="btn btn-light">Publicar</button>
 <br><br>
 
 </div>`;

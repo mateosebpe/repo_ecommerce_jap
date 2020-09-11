@@ -90,15 +90,32 @@ function commentAuth ()
   `<div>
 <textarea class="col-md-12" type="text" placeholder="Escribe aquí tu comentario..." id="text-comment"></textarea>
 <br>
-<i class="fas fa-star"></i>
-<select id="calification">
-  <optgroup label="Calificación">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option selected>5</option></optgroup>
-</select>
+ <div class="star-rating">
+    <input id="star-5" type="radio" name="rating" value="5" />
+    <label for="star-5" title="5 stars">
+      <i class="active fa fa-star"></i>
+    </label>
+
+    <input id="star-4" type="radio" name="rating" value="4" />
+    <label for="star-4" title="4 stars">
+      <i class="active fa fa-star"></i>
+    </label>
+
+    <input id="star-3" type="radio" name="rating" value="3" />
+    <label for="star-3" title="3 stars">
+      <i class="active fa fa-star"></i>
+    </label>
+
+    <input id="star-2" type="radio" name="rating" value="2" />
+    <label for="star-2" title="2 stars">
+      <i class="active fa fa-star"></i>
+    </label>
+
+    <input id="star-1" type="radio" name="rating" value="1" checked />
+    <label for="star-1" title="1 star">
+      <i class="active fa fa-star"></i>
+    </label>
+  </div>
 <button id="publish-btn" class="btn btn-light">Publicar</button>
 <br><br>
 
@@ -116,11 +133,12 @@ let warningLoggedOut =
     //Enviar mensaje
     document.getElementById("publish-btn").addEventListener("click", function(e)
 {
+  
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   var dateTime = date+' '+time;
-  let newComment = {score: document.getElementById("calification").value, 
+  let newComment = {score: document.querySelector('input[name="rating"]:checked').value, 
                   description: document.getElementById("text-comment").value, 
                   user: getName(),
                   dateTime: dateTime};

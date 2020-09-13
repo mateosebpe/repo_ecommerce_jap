@@ -31,10 +31,10 @@ function onSignIn(googleUser) {
 
   //Manual SignIn
   document.getElementById("submit").addEventListener("click", function(e){
-    let user = document.getElementById("usr");
-    let password = document.getElementById("psw");
+    let user = document.getElementById("usr").value;
+    let password = document.getElementById("psw").value;
     
-    if(user.value != "" && password.value != ""){
+    if(user != "" && password != ""){
       logged(user);
     }
   });

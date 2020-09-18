@@ -6,16 +6,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 
   if (isLogged()) {
-    htmlContentToAppend = `<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    htmlContentToAppend = `<div class="nav-item dropdown">
+    <a class="nav-link text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     `+ "Bienvenido/a " + getName() + `
-    </button>
+    </a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" id="my-profile">Mi perfil</a>
-      <a class="dropdown-item" id="disconnect">Desconectarse</a>
+      <a href="#" class="dropdown-item" id="my-cart"><i class="fas fa-shopping-cart"></i> Mi carrito</a>
+      <a href="#" class="dropdown-item" id="my-profile"><i class="fas fa-user-alt"></i> Mi perfil</a>
+      <a href="#" class="dropdown-item" id="disconnect"><i class="fas fa-sign-out-alt"></i> Desconectarse</a>
     </div>
   </div>`
     document.getElementById("userIdentity").innerHTML = htmlContentToAppend;
+    
+    document.getElementById("my-cart").addEventListener("click", function (e) {
+      window.location.href = "cart.html"
+    });
     document.getElementById("disconnect").addEventListener("click", function (e) {
       getLocalStorage.clear();
       window.location.href = "index.html"

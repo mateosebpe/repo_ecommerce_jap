@@ -1,11 +1,18 @@
 let imgPag = 0;
 let commentArray = [];
+let relatedArray;
 //=====================================================================================
 
 document.addEventListener("DOMContentLoaded", function (e) {
+  getJSONData(PRODUCTS_URL).then(function(e){
+    if (e.status == "ok"){
+      relatedArray = e.data;
+    }
+  });
   getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
     if (resultObj.status == "ok") {
       showInfo(resultObj.data);
+      showProductsRelated(resultObj.data);
     }
   });
   getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
@@ -155,3 +162,39 @@ let warningLoggedOut =
   }
 }
 
+//=====================================================================================
+
+function showProductsRelated(data) {
+  let htmlContentToAppend = "<p>Productos relacionados</p>";
+  
+  
+
+  for (let i = 0; i < relatedArray.length; i++) {
+    
+
+    if (data.relatedProducts.indexOf(i) != -1) {
+      let product = relatedArray[i];
+      htmlContentToAppend += `
+        <a href="product-info.html" class="list-group-item list-group-item-action">
+        <div class="row">
+
+          <div class="col-3">
+            <img src="`+ product.imgSrc + `"class="img-thumbnail">
+          </div>
+
+          <div class="col">
+            <div class="d-flex w-100 justify-content-between">
+              <h2 class="mb-1">`+ product.name + " - " + product.cost + " " + product.currency + `</h2>
+              <p class="text-muted">Vendidos: `+ product.soldCount + `</p>
+            </div>
+            <div>
+              <p class="mb-1 text-muted">` + product.description + `</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      `
+  }
+  }
+  document.getElementById("related-products-display").innerHTML = htmlContentToAppend;
+}

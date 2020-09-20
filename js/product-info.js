@@ -1,18 +1,16 @@
 let imgPag = 0;
 let commentArray = [];
 let relatedArray;
+let productInfo;
 //=====================================================================================
 
 document.addEventListener("DOMContentLoaded", function (e) {
-  getJSONData(PRODUCTS_URL).then(function(e){
-    if (e.status == "ok"){
-      relatedArray = e.data;
-    }
-  });
+  
   getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
     if (resultObj.status == "ok") {
+      productInfo = resultObj.data;
       showInfo(resultObj.data);
-      showProductsRelated(resultObj.data);
+      
     }
   });
   getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
@@ -29,38 +27,45 @@ document.addEventListener("DOMContentLoaded", function (e) {
 //=====================================================================================
 
 function showInfo(infoData) {
-  let htmlContentToAppend = `<div class="row"> 
+  let imgContentToAppend = `<div class="carousel-item active">
+  <img class="d-block w-100" src="${infoData.images[0]}" >
+</div>`;
+
+  for (let index = 1; index < infoData.images.length; index++) {
+   imgContentToAppend += `<div class="carousel-item">
+   <img class="d-block w-100" src="${infoData.images[index]}">
+ </div>`;
+  }
+
+  let htmlContentToAppend = `<div class="row">
 <div class="col-md-6 text-center">
-  <img src="`+ infoData.images[imgPag] + `" alt="" class="col">
-  <button class="btn" id="previous">Anterior</button>
-  <button class="btn" id="next">Siguiente</button>
+<div id="carouselExampleSlidesOnly" class="carousel slide"  >
+  <div class="carousel-inner">
+  ${imgContentToAppend}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleSlidesOnly" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
+</div>
+
 <div class="col-md-6" >
   <h2>`+ infoData.name + `</h2>
   <h4 class="text-success">`+ infoData.cost + " " + infoData.currency + `</h4>
   <p class="text-info">`+ infoData.soldCount + " vendidos.  |  " + "Categoría: " + infoData.category + `</p>
   <p style="overflow: auto;">`+ infoData.description + `</p>
+</div>
 </div>`
 
   document.getElementById("product-info-display").innerHTML = htmlContentToAppend;
+  
+  showProductsRelated(infoData);
 
-  document.getElementById("next").addEventListener("click", function () {
-    if (imgPag < infoData.images.length - 1) {
-      imgPag++;
-    } else {
-      imgPag = 0;
-    }
-    showInfo(infoData);
-  });
-
-  document.getElementById("previous").addEventListener("click", function () {
-    if (imgPag > 0) {
-      imgPag--;
-    } else {
-      imgPag = infoData.images.length - 1;
-    }
-    showInfo(infoData);
-  });
 }
 
 //=====================================================================================
@@ -165,36 +170,42 @@ let warningLoggedOut =
 //=====================================================================================
 
 function showProductsRelated(data) {
-  let htmlContentToAppend = "<p>Productos relacionados</p>";
+  getJSONData(PRODUCTS_URL).then(function(e){
+    if (e.status == "ok"){
+      relatedArray = e.data;
+      let htmlContentToAppend = "<p>Productos relacionados</p>";
   
   
 
-  for (let i = 0; i < relatedArray.length; i++) {
+      for (let i = 0; i < relatedArray.length; i++) {
+        
     
-
-    if (data.relatedProducts.indexOf(i) != -1) {
-      let product = relatedArray[i];
-      htmlContentToAppend += `
-        <a href="product-info.html" class="list-group-item list-group-item-action">
-        <div class="row">
-
-          <div class="col-3">
-            <img src="`+ product.imgSrc + `"class="img-thumbnail">
-          </div>
-
-          <div class="col">
-            <div class="d-flex w-100 justify-content-between">
-              <h2 class="mb-1">`+ product.name + " - " + product.cost + " " + product.currency + `</h2>
-              <p class="text-muted">Vendidos: `+ product.soldCount + `</p>
+        if (data.relatedProducts.indexOf(i) != -1) {
+          let product = relatedArray[i];
+          htmlContentToAppend += `
+            <a href="product-info.html" class="list-group-item list-group-item-action">
+            <div class="row">
+    
+              <div class="col-3">
+                <img src="`+ product.imgSrc + `"class="img-thumbnail">
+              </div>
+    
+              <div class="col">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">`+ product.name + " - " + product.cost + " " + product.currency + `</h4>
+                  <p class="text-muted">Vendidos: `+ product.soldCount + `</p>
+                </div>
+                <div>
+                  <p class="mb-1 text-muted">` + product.description + `</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <p class="mb-1 text-muted">` + product.description + `</p>
-            </div>
-          </div>
-        </div>
-      </a>
-      `
-  }
-  }
-  document.getElementById("related-products-display").innerHTML = htmlContentToAppend;
+          </a>
+          `
+      }
+      }
+      document.getElementById("related-products-display").innerHTML = htmlContentToAppend;
+    }
+  });
+  
 }

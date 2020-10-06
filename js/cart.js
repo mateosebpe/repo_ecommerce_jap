@@ -8,45 +8,57 @@ document.addEventListener("DOMContentLoaded", function (e) {
     });
 });
 
+function convertCurrency() {
+    itemsArray.articles.forEach(element => {
+        if (currencySelector.value == "UYU" && element.currency == "USD") {
+            element.unitCost = parseFloat(element.unitCost) * 40;
+            element.currency = "UYU"
+        }
+        if (currencySelector.value == "USD" && element.currency == "UYU") {
+            element.unitCost = parseFloat(element.unitCost) / 40;
+            element.currency = "USD"
+        }
+
+    });
+    makeElements()
+}
 
 function makeElements() {
     let htmlContent = ``;
-    itemsArray.articles.forEach(element => {
+    itemsArray.articles.forEach(function(element,index) {
         htmlContent +=
             `<tr>
             <td><img src="${element.src}" height="100px"></td>
              <td>${element.name}</td>
-             <td><input type="number" value="${element.count}" onclick="calSubtotal();"></td>
-             <td>${element.unitCost + " " + element.currency}</td>
-             <td class="subtotal">${parseFloat(element.unitCost) * parseFloat(element.count) + " " + element.currency}</td>
+             <td><input type="number" id="input${index}" value="${element.count}" onclick="changeSub(${element.unitCost},${index});"></td>
+             <td>${element.unitCost}</td>
+             <td id="subtotal${index}">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
+             <td>${element.currency}</td>
              </tr>`;
     });
     document.getElementById('elements-display').innerHTML = htmlContent;
 }
 
-function convertCurrency() {
-    itemsArray.articles.forEach(element => {
-        if (currencySelector.value == 0 && element.currency == "USD") {
-            element.unitCost = parseFloat(element.unitCost) * 40;
-            element.currency = "UYU"
-        }
-        if (currencySelector.value == 1 && element.currency == "UYU") {
-            element.unitCost = parseFloat(element.unitCost) / 40;
-            element.currency = "USD"
-        }
-    });
-    makeElements()
+function changeSub(cost, index) {
+    let subtotal = document.getElementById('subtotal' + index);
+    console.log(subtotal);
+    subtotal.innerText = document.getElementById('input' + index).value * cost;
+    itemsArray.articles[index].subtotal = document.getElementById('input' + index).value * cost;
 }
+
+function calcSub() {
+    let total = 0;
+    let subs = document.getElementByClassName('');
+    itemsArray.articles.forEach(element => {
+        element.subtotal = parseFloat(element.unitCost) * parseFloat(element.count);
+        total += element.subtotal;
+    });
+
+document.getElementById('subtotal').innerHTML = total + currencySelector.value;
+    convertCurrency();
+}
+
 
 currencySelector.addEventListener('input', () => {
     convertCurrency();
 });
-
-function calSubtotal(){
-    let subtotals = document.getElementsByClassName('subtotal');
-    let total = 0;
-    subtotals.forEach(subtotal =>{
-        total += subtotal.value;
-    });
-    console.log(total);
-}

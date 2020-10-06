@@ -44,14 +44,42 @@
       <div id="userIdentity"></div>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <th>Imagen</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Costo/Unidad</th>
+            <th>Subtotal</th>
+          </thead>
+          <tbody id="elements-display">
+
+          </tbody>
+          <tfoot >
+            <td class="text-right">Moneda de pago:</td>
+            <td >
+              <select name="" id="currencySelector" class="form-control form-control-sm">
+                <option value="0">Pesos (UYU)</option>
+                <option value="1">Dólares (USD)</option>
+              </select>
+            </td>
+            <td class="text-center">-----------</td>
+            <td class="text-right">
+              Subtotal:
+            </td>
+            <td id="subtotal">
+              xxxxx
+            </td>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

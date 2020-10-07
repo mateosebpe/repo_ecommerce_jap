@@ -28,7 +28,7 @@ function makeElements() {
     itemsArray.articles.forEach(function(element,index) {
         htmlContent +=
             `<tr>
-            <td><img src="${element.src}" height="100px"></td>
+            <td><img src="${element.src} " class="rounded" height="100px"></td>
              <td>${element.name}</td>
              <td>${element.unitCost}</td>
              <td><input type="number" id="input${index}" value="${element.count}" min="0" onclick="changeSub(${element.unitCost},${index});"></td>

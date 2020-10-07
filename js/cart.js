@@ -30,32 +30,32 @@ function makeElements() {
             `<tr>
             <td><img src="${element.src}" height="100px"></td>
              <td>${element.name}</td>
-             <td><input type="number" id="input${index}" value="${element.count}" onclick="changeSub(${element.unitCost},${index});"></td>
              <td>${element.unitCost}</td>
+             <td><input type="number" id="input${index}" value="${element.count}" min="0" onclick="changeSub(${element.unitCost},${index});"></td>
              <td id="subtotal${index}">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
              <td>${element.currency}</td>
              </tr>`;
+             element.subtotal = parseFloat(element.unitCost) * parseFloat(element.count);
     });
     document.getElementById('elements-display').innerHTML = htmlContent;
+    calcSub();
 }
 
 function changeSub(cost, index) {
     let subtotal = document.getElementById('subtotal' + index);
-    console.log(subtotal);
     subtotal.innerText = document.getElementById('input' + index).value * cost;
     itemsArray.articles[index].subtotal = document.getElementById('input' + index).value * cost;
+    calcSub();
 }
 
 function calcSub() {
     let total = 0;
-    let subs = document.getElementByClassName('');
+   // let subs = document.getElementByClassName('');
     itemsArray.articles.forEach(element => {
-        element.subtotal = parseFloat(element.unitCost) * parseFloat(element.count);
         total += element.subtotal;
     });
 
-document.getElementById('subtotal').innerHTML = total + currencySelector.value;
-    convertCurrency();
+document.getElementById('subtotal').innerHTML = total +" "+ currencySelector.value;
 }
 
 

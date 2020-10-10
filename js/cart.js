@@ -32,7 +32,7 @@ function makeElements() {
              <td>${element.name}</td>
              <td>${element.unitCost}</td>
              <td><input type="number" id="input${index}" value="${element.count}" min="0" onclick="changeSub(${element.unitCost},${index});"></td>
-             <td id="subtotal${index}">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
+             <td id="subtotal${index}" class="text-left">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
              <td>${element.currency}</td>
              </tr>`;
              element.subtotal = parseFloat(element.unitCost) * parseFloat(element.count);
@@ -55,7 +55,9 @@ function calcSub() {
         total += element.subtotal;
     });
 
-document.getElementById('subtotal').innerHTML = total +" "+ currencySelector.value;
+document.getElementById('subtotal').innerHTML = total;
+
+document.getElementById('moneda').innerHTML = currencySelector.value;
 }
 
 

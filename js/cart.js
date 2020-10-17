@@ -68,10 +68,15 @@ function changeSub(cost, index) {
 let forma_de_pago_select = document.getElementById('forma_de_pago_select');
 let forma_de_pago_formulario = document.getElementById('forma_de_pago_formulario');
 
-document.getElementById('forma_de_pago_boton').addEventListener('click', () => {
+forma_de_pago_formulario.addEventListener('submit', event => {
+    event.preventDefault();
+    event.stopPropagation();
+    if(forma_de_pago_formulario.checkValidity()){
     forma_de_pago = forma_de_pago_select.value;
     document.getElementById('forma_de_pago_preview').innerHTML = forma_de_pago;
-    document.getElementById('pago_modal').modal('hide');
+    $('#pago_modal').modal('hide');
+}  
+    forma_de_pago_formulario.classList.add('was-validated');
 });
 //----------------------------------------Seleccionar método de envío----------------------------------------
 document.getElementById('premium-tab').addEventListener('click', () => {
@@ -125,14 +130,12 @@ function calcularEnvio() {
 
 document.getElementById('confirmar_compra').addEventListener('click', () => {
     if (forma_de_pago != undefined) {
- 
-
-        $('#modal_felicidades').modal('show')
+        $('#modal_felicidades').modal('show');
 
     } else {
         let options = {placement: 'right',container: 'body', title: '¡Debes rellenar la forma de pago!', content: "De lo contrario no podrás realizar la compra."}
         $('#forma_de_pago_contenedor').popover(options);
-        $('#forma_de_pago_contenedor').popover('show');
-        setTimeout(() =>{$('#forma_de_pago_contenedor').popover('hide');}, 3000);
+        $('#forma_de_pago_contenedor').popover('enable').popover('show');
+        setTimeout(() =>{$('#forma_de_pago_contenedor').popover('hide').popover('disable');}, 3000);
     }
 });

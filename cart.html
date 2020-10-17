@@ -138,7 +138,7 @@
     <div class="row my-5 shadow">
       <div class="col-4 border text-center p-4" id="forma_de_pago_contenedor">
         <h3>Forma de pago</h3>
-        <p id="forma_de_pago_preview">Ninguna (Es necesario elegir una)</p>
+        <p id="forma_de_pago_preview">Ninguna (Es necesario seleccionar una).</p>
         <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#pago_modal">Elegir forma de
           pago</button>
       </div>
@@ -179,27 +179,26 @@
           </select>
           <hr>
           <p>Datos del titular</p>
-          <p class="text-warning">Los campos vacíos se rellenarán con los datos de tu cuenta.</p>
-            <input class="form-control" type="text" placeholder="Nombre completo del titular">
+          <form novalidate id="forma_de_pago_formulario">
+            <input class="form-control" type="text" placeholder="País" required>
             <br>
-            <input class="form-control" type="text" placeholder="Serie">
+            <input class="form-control" type="text" placeholder="Dirección" required>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-success"   id="forma_de_pago_boton">Confirmar</button>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" data-dismiss="modal"  id="forma_de_pago_boton">Confirmar</button>
-        </div>
+        
       </div>
     </div>
   </div>
 
-  <div class="modal" tabindex="-1" role="dialog" id="modal_felicidades">
+  <div class="modal" tabindex="-1" role="dialog" id="modal_felicidades" data-backdrop="static">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Felicidades</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body">
           <p>¡Has comprado con éxito!</p>

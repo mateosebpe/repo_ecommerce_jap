@@ -29,8 +29,11 @@
     }
 
     .nav-link.active {
-      background-color: orange;
+      background-color: #343a40;
+      color: orange;
     }
+
+    ul li a {color: #343a40;}
   </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -50,8 +53,8 @@
   </nav>
 
   <div class="container">
-    <div class="row">
-      <div class="col-md-12 mt-5">
+    <div class="row shadow mt-5">
+      <div class="col-md-12">
         <table class="table table-striped table-dark">
           <thead>
             <th>Imagen</th>
@@ -85,49 +88,103 @@
           </tfoot>
         </table>
       </div>
+    </div>
+
+
+    <div class="row shadow my-5 py-2">
       <div class="col-md-12">
         <h2 class="text-center">Método de envío</h2>
-        <p class="text-center">Selecciona el método de envío que desees, la prioridad de envío y el costo total se verá afectado.</p>
+        <p class="text-center">Selecciona el método de envío que desees, la prioridad de envío y el costo total se verá
+          afectado.</p>
         <ul class="nav nav-tabs nav-justified md-tabs " id="myTabJust" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab"
+            <a class="nav-link active" id="premium-tab" data-toggle="tab" href="#home-just" role="tab"
               aria-controls="home-just" aria-selected="true">
               <i class="fas fa-bolt"></i>
               <p>Premium</p>
-              <ul class="text-left text-dark">
+              <ul class="text-left ">
                 <li>De 2 a 5 días</li>
                 <li>Costo del 15% sobre el subtotal</li>
               </ul>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab"
+            <a class="nav-link" id="express-tab" data-toggle="tab" href="#profile-just" role="tab"
               aria-controls="profile-just" aria-selected="false">
               <i class="fas fa-shipping-fast"></i>
               <p>Express</p>
-              <ul class="text-left text-dark">
+              <ul class="text-left ">
                 <li>De 5 a 8 días</li>
                 <li>Costo del 7% sobre el subtotal</li>
               </ul>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab"
+            <a class="nav-link" id="standard-tab" data-toggle="tab" href="#contact-just" role="tab"
               aria-controls="contact-just" aria-selected="false">
               <i class="fas fa-truck"></i>
               <p>Standard</p>
-              <ul class="text-left text-dark">
+              <ul class="text-left ">
                 <li>De 12 a 15 días</li>
                 <li>Costo del 5% sobre el subtotal</li>
               </ul>
             </a>
           </li>
         </ul>
-        
+      </div>
+
+
+    </div>
+    <div class="row my-5 shadow">
+      <div class="col-4 border text-center p-4">
+        <h3>Forma de pago</h3>
+        <p>Seleccionada: ninguna</p>
+        <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#exampleModal">Elegir forma de
+          pago</button>
+      </div>
+      <div class="col-8">
+        <table class="table">
+          <thead>
+            <th>Subtotal</th>
+            <th>Envío</th>
+            <th>Total</th>
+          </thead>
+          <tbody id="tabla_total">
+
+          </tbody>
+          <tfoot>
+            <td colspan="3"><button class="btn btn-success btn-block">Confirmar compra</button></td>
+          </tfoot>
+        </table>
       </div>
     </div>
-    
   </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Forma de pago</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <select class="form-control custom-select">
+            <option>Tarjeta de crédito</option>
+            <option>Transferencia bancaria</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div id="spinner-wrapper">
     <div class="lds-ring">

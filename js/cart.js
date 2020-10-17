@@ -9,6 +9,7 @@ let subtotal_principal;
 let metodo_de_envio = ENVIO_PREMIUM;
 let costo_de_envio;
 let moneda;
+let forma_de_pago = undefined;
 
 
 
@@ -47,7 +48,7 @@ function makeElements() {
             <td><img src="${element.src} " class="rounded" height="100px"></td>
              <td>${element.name}</td>
              <td>${element.unitCost}</td>
-             <td><input type="number" id="input${index}" value="${element.count}" min="0" onclick="changeSub(${element.unitCost},${index});"></td>
+             <td><input type="number" id="input${index}" value="${element.count}" min="1" onclick="changeSub(${element.unitCost},${index});"></td>
              <td id="subtotal${index}" class="text-left">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
              <td>${moneda}</td>
              </tr>`;
@@ -63,16 +64,25 @@ function changeSub(cost, index) {
     itemsArray.articles[index].subtotal = document.getElementById('input' + index).value * cost;
     calcSub();
 }
+//----------------------------------------Seleccionar forma de pago------------------------------------------------
+let forma_de_pago_select = document.getElementById('forma_de_pago_select');
+let forma_de_pago_formulario = document.getElementById('forma_de_pago_formulario');
+
+document.getElementById('forma_de_pago_boton').addEventListener('click', () => {
+    forma_de_pago = forma_de_pago_select.value;
+    document.getElementById('forma_de_pago_preview').innerHTML = forma_de_pago;
+    document.getElementById('pago_modal').modal('hide');
+});
 //----------------------------------------Seleccionar método de envío----------------------------------------
-document.getElementById('premium-tab').addEventListener('click', () => { 
+document.getElementById('premium-tab').addEventListener('click', () => {
     metodo_de_envio = ENVIO_PREMIUM;
     calcularEnvio();
 });
-document.getElementById('express-tab').addEventListener('click', () => { 
+document.getElementById('express-tab').addEventListener('click', () => {
     metodo_de_envio = ENVIO_EXPRESS;
     calcularEnvio();
 });
-document.getElementById('standard-tab').addEventListener('click', () => { 
+document.getElementById('standard-tab').addEventListener('click', () => {
     metodo_de_envio = ENVIO_STANDARD;
     calcularEnvio();
 });
@@ -110,3 +120,19 @@ function calcularEnvio() {
 
     document.getElementById('tabla_total').innerHTML = htmlContent;
 }
+
+//----------------------------------------Confirmar compra---------------------------------------------
+
+document.getElementById('confirmar_compra').addEventListener('click', () => {
+    if (forma_de_pago != undefined) {
+ 
+
+        $('#modal_felicidades').modal('show')
+
+    } else {
+        let options = {placement: 'right',container: 'body', title: '¡Debes rellenar la forma de pago!', content: "De lo contrario no podrás realizar la compra."}
+        $('#forma_de_pago_contenedor').popover(options);
+        $('#forma_de_pago_contenedor').popover('show');
+        setTimeout(() =>{$('#forma_de_pago_contenedor').popover('hide');}, 3000);
+    }
+});

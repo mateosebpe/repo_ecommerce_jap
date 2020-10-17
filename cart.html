@@ -136,10 +136,10 @@
 
     </div>
     <div class="row my-5 shadow">
-      <div class="col-4 border text-center p-4">
+      <div class="col-4 border text-center p-4" id="forma_de_pago_contenedor">
         <h3>Forma de pago</h3>
-        <p>Seleccionada: ninguna</p>
-        <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#exampleModal">Elegir forma de
+        <p id="forma_de_pago_preview">Ninguna (Es necesario elegir una)</p>
+        <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#pago_modal">Elegir forma de
           pago</button>
       </div>
       <div class="col-8">
@@ -153,7 +153,7 @@
 
           </tbody>
           <tfoot>
-            <td colspan="3"><button class="btn btn-success btn-block">Confirmar compra</button></td>
+            <td colspan="3"><button class="btn btn-success btn-block" id="confirmar_compra">Confirmar compra</button></td>
           </tfoot>
         </table>
       </div>
@@ -162,7 +162,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="pago_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -172,18 +172,45 @@
           </button>
         </div>
         <div class="modal-body">
-          <select class="form-control custom-select">
+          <p>Método</p>
+          <select class="form-control custom-select" id="forma_de_pago_select">
             <option>Tarjeta de crédito</option>
             <option>Transferencia bancaria</option>
           </select>
+          <hr>
+          <p>Datos del titular</p>
+          <p class="text-warning">Los campos vacíos se rellenarán con los datos de tu cuenta.</p>
+            <input class="form-control" type="text" placeholder="Nombre completo del titular">
+            <br>
+            <input class="form-control" type="text" placeholder="Serie">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal"  id="forma_de_pago_boton">Confirmar</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modal_felicidades">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Felicidades</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>¡Has comprado con éxito!</p>
+        </div>
+        <div class="modal-footer">
+          <a href="cover.html" class="btn btn-success">Seguir comprando</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
   <div id="spinner-wrapper">

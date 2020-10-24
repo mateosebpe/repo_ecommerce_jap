@@ -19,7 +19,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
         convertCurrency();
     });
 });
-
+//----------------------------------------Crear elementos--------------------------------------------------
+function makeElements() {
+    let htmlContent = ``;
+    itemsArray.articles.forEach(function (element, index) {
+        htmlContent +=
+            `<tr>
+            <td><img src="${element.src} " class="rounded" height="100px"></td>
+             <td>${element.name}</td>
+             <td>${element.unitCost}</td>
+             <td><input type="number" id="input${index}" value="${element.count}" min="1" onclick="changeSub(${element.unitCost},${index});"></td>
+             <td id="subtotal${index}" class="text-left">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
+             <td>${moneda}</td>
+             </tr>`;
+        element.subtotal = parseFloat(element.unitCost) * parseFloat(element.count);
+    });
+    document.getElementById('elements-display').innerHTML = htmlContent;
+    calcSub();
+}
 //----------------------------------------Seleccionar moneda--------------------------------------------------
 currencySelector.addEventListener('input', () => {
     convertCurrency();
@@ -39,31 +56,6 @@ function convertCurrency() {
     });
     makeElements()
 }
-//----------------------------------------Crear elementos--------------------------------------------------
-function makeElements() {
-    let htmlContent = ``;
-    itemsArray.articles.forEach(function (element, index) {
-        htmlContent +=
-            `<tr>
-            <td><img src="${element.src} " class="rounded" height="100px"></td>
-             <td>${element.name}</td>
-             <td>${element.unitCost}</td>
-             <td><input type="number" id="input${index}" value="${element.count}" min="1" onclick="changeSub(${element.unitCost},${index});"></td>
-             <td id="subtotal${index}" class="text-left">${parseFloat(element.unitCost) * parseFloat(element.count)}</td>
-             <td>${moneda}</td>
-             </tr>`;
-        element.subtotal = parseFloat(element.unitCost) * parseFloat(element.count);
-    });
-    document.getElementById('elements-display').innerHTML = htmlContent;
-    calcSub();
-}
-//----------------------------------------Cambiar cantidades------------------------------------------------
-function changeSub(cost, index) {
-    let subtotal_secundario = document.getElementById('subtotal' + index);
-    subtotal_secundario.innerText = document.getElementById('input' + index).value * cost;
-    itemsArray.articles[index].subtotal = document.getElementById('input' + index).value * cost;
-    calcSub();
-}
 //----------------------------------------Seleccionar forma de pago------------------------------------------------
 let forma_de_pago_select = document.getElementById('forma_de_pago_select');
 let forma_de_pago_formulario = document.getElementById('forma_de_pago_formulario');
@@ -71,11 +63,11 @@ let forma_de_pago_formulario = document.getElementById('forma_de_pago_formulario
 forma_de_pago_formulario.addEventListener('submit', event => {
     event.preventDefault();
     event.stopPropagation();
-    if(forma_de_pago_formulario.checkValidity()){
-    forma_de_pago = forma_de_pago_select.value;
-    document.getElementById('forma_de_pago_preview').innerHTML = forma_de_pago;
-    $('#pago_modal').modal('hide');
-}  
+    if (forma_de_pago_formulario.checkValidity()) {
+        forma_de_pago = forma_de_pago_select.value;
+        document.getElementById('forma_de_pago_preview').innerHTML = forma_de_pago;
+        $('#pago_modal').modal('hide');
+    }
     forma_de_pago_formulario.classList.add('was-validated');
 });
 //----------------------------------------Seleccionar método de envío----------------------------------------
@@ -91,6 +83,13 @@ document.getElementById('standard-tab').addEventListener('click', () => {
     metodo_de_envio = ENVIO_STANDARD;
     calcularEnvio();
 });
+//----------------------------------------Cambiar cantidades------------------------------------------------
+function changeSub(cost, index) {
+    let subtotal_secundario = document.getElementById('subtotal' + index);
+    subtotal_secundario.innerText = document.getElementById('input' + index).value * cost;
+    itemsArray.articles[index].subtotal = document.getElementById('input' + index).value * cost;
+    calcSub();
+}
 //----------------------------------------Calcular subtotal--------------------------------------------------
 function calcSub() {
     subtotal_principal = 0;
@@ -133,9 +132,9 @@ document.getElementById('confirmar_compra').addEventListener('click', () => {
         $('#modal_felicidades').modal('show');
 
     } else {
-        let options = {placement: 'right',container: 'body', title: '¡Debes rellenar la forma de pago!', content: "De lo contrario no podrás realizar la compra."}
+        let options = { placement: 'right', container: 'body', title: '¡Debes rellenar la forma de pago!', content: "De lo contrario no podrás realizar la compra." }
         $('#forma_de_pago_contenedor').popover(options);
         $('#forma_de_pago_contenedor').popover('enable').popover('show');
-        setTimeout(() =>{$('#forma_de_pago_contenedor').popover('hide').popover('disable');}, 3000);
+        setTimeout(() => { $('#forma_de_pago_contenedor').popover('hide').popover('disable'); }, 3000);
     }
 });

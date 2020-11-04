@@ -46,22 +46,34 @@
   </nav>
 
   <div class="container">
-    <div class="row p-1">
+    <div class="row p-1 bg">
 
-      <div class="col-md-3 sm-12 card m-1"><img src="./img/login.png" height="300px" class="rounded-circle"></div>
-      <div class="col-md-4 sm-12 card m-1 p-3">
-        <h4>Datos personales</h4>
-        <input type="text" placeholder="Nombre" class="form-control mb-2">
-        <div class="row">
-          <div class="col-md-4 sm-12 "><input type="number" max="110" min="0"  placeholder="Edad" class="form-control mb-2">
+      <div class="col-6 sm-12 card m-1 p-3 bg-dark shadow">
+        <p class="text-center"><img id="profile_img" src="https://th.bing.com/th/id/OIP.tHluP4chQzW31oRhD-mqogHaHa?pid=Api&rs=1"
+            height="200px" width="200px" class="rounded-circle shadow border"></p>
+        <form novalidate id="profile-info">
+          
+          <input type="text" id="iurl" class="form-control my-3" placeholder="URL de imagen perfil">
+          
+          <h4 class="text-light">Datos personales</h4>
+          
+          <input type="text" id="iname" placeholder="Nombre" class="form-control mb-2" required>
+          
+          <input type="text" id="ilastname" placeholder="Apellido" class="form-control mb-2" required>
+          
+          <div class="row">
+            <div class="col-md-4 sm-12 "><input type="number" id="iage" max="110" min="0" placeholder="Edad"
+                class="form-control mb-2" required>
+            </div>
+            <div class="col-md-8 sm-12"><input type="text" id="itel" placeholder="Teléfono" class="form-control mb-2">
+            </div>
           </div>
-          <div class="col-md-8 sm-12"><input type="text"  placeholder="Teléfono" class="form-control mb-2">
-          </div>
-        </div>
-        <input type="text"  placeholder="E-mail" class="form-control mb-2">
-        <button type="submit" class="btn btn-success">Guardar cambios</button>
+          
+          <input type="text" id="iemail" placeholder="E-mail" class="form-control mb-2">
+
+          <button type="submit" id="success_btn" class="btn btn-success">Guardar cambios</button>
+        </form>
       </div>
-      <div class="col card m-1"></div>
     </div>
   </div>
 
